@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.24)
+project(RepackSuite LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_subdirectory(core)
+add_subdirectory(apps/InstallerApp)
+add_subdirectory(apps/PackerApp)
+
+option(REPACKSUITE_BUILD_QT "Build Qt Quick GUI applications" ON)
+if (REPACKSUITE_BUILD_QT)
+    find_package(Qt6 QUIET COMPONENTS Quick QuickControls2 Concurrent)
+    if (Qt6_FOUND)
+        qt_standard_project_setup(REQUIRES 6.5)
+        add_subdirectory(apps/PackerQt)
+        add_subdirectory(apps/InstallerQt)
+    else()
+        message(STATUS "Qt6 was not found. Console apps will be built; Qt GUI apps are skipped.")
+    endif()
+endif()
