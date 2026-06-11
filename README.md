@@ -1,4 +1,4 @@
-# RepackSuite
+# ZRepacker
 
 A fast, self-contained Windows game repacking suite scaffold written in C++20.
 
